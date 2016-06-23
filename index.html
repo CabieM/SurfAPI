@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	<script type="text/javascript" src="http://magicseaweed.com/syndicate/index.php?licenseKey=1466622241_32384"></script>
+
+	
+	<script>
+	$(document).ready(function(){
+		console.log("TEST");
+
+		var surfData;
+
+		$.get("data/response.json").done(function( data ){
+			//console.log(data )
+
+			surfData = data;
+			console.log(surfData);
+			console.log(surfData[0]);
+			console.log(surfData[0].condition.temperature);
+
+			$(".temp").html( "<b>" + surfData[0].condition.temperature + "</b>" )
+		})
+	})
+	</script>
+	<style>
+	.temp{
+		font-size : 80vh;
+	}
+	</style>
+</head>
+<body>
+
+<div class="temp">
+
+</div>
+
+</body>
+</html>
