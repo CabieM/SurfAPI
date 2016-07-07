@@ -11,6 +11,9 @@
 	$(document).ready(function(){
 		console.log("TEST");
 		var surfData
+
+		var hawaiiData
+		var longBeachData
 		// $.ajax( {
 		// 	datatype 	: "json",
 		// 	url			: "http://magicseaweed.com/api/52e12d680684572ddc98765bc10b90d2/forecast/?spot_id=1",
@@ -18,16 +21,31 @@
 		// 		console.log(data)
 		// 	}
 		// } )
+
+
 		$.ajax({
 			dataType: "jsonp",
-			url: "http://magicseaweed.com/api/52e12d680684572ddc98765bc10b90d2/forecast/?spot_id=616&units=us",
+			url: "http://magicseaweed.com/api/52e12d680684572ddc98765bc10b90d2/forecast/?spot_id=616",
 			success: function (data) {
 				//console.log(data);
-				surfData = data;
-				surfdataHandler()
+				hawaiiData = data;
+				//surfdataHandler()
 			}
 		});
-		function surfdataHandler(){
+
+		$.ajax({
+			dataType: "jsonp",
+			url: "http://magicseaweed.com/api/52e12d680684572ddc98765bc10b90d2/forecast/?spot_id=383",
+			success: function (data) {
+				//console.log(data);
+				longBeachData = data;
+				//surfdataHandler()
+			}
+		});
+
+
+
+		function surfdataHandler( surfData ){
 			console.log( surfData )
 			console.log( typeof( surfData ))
 			console.log( surfData.length )
@@ -38,21 +56,17 @@
 			$(".temp").html("Temp: " + surfData[0].condition.temperature + "&#8457")
 			$(".minHeight").html("min surf height : " + surfData[0].swell.minBreakingHeight + " feet")
 			$(".maxHeight").html("max surf height : " + surfData[0].swell.maxBreakingHeight + " feet")
-			
-		
 
-			// for( i = 0; i < surfData.length; i++){
-			// 	console.log( surfData[i])
-			// }
 		}
-		// $.get("data/response.json").done(function( data ){
-		// 	//console.log(data ) 
-		// 	surfData = data;
-		// 	console.log(surfData);
-		// 	console.log(surfData[0]);
-		// 	console.log(surfData[0].condition.weather);
-		// 	$(".temp").html( "<b>" + surfData[0].condition.weather + "</b>" )
-		// })
+
+
+		$("#hawaii").click( function(){
+			surfdataHandler( hawaiiData )
+		});	
+
+
+
+
 	})
 	</script>
 	
@@ -80,6 +94,8 @@
 	</style>
 </head>
 <body>
+
+<a 	href="#" id="hawaii">Load Hawaii</a>
 
 <div class="map"></div>
 
