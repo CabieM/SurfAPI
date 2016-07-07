@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	<script type="text/javascript" src="http://magicseaweed.com/api/52e12d680684572ddc98765bc10b90d2/forecast/?spot_id=1"></script>
+
+
+	<script>
+		
+	$(document).ready(function(){
+		console.log("TEST");
+		var surfData
+		// $.ajax( {
+		// 	datatype 	: "json",
+		// 	url			: "http://magicseaweed.com/api/52e12d680684572ddc98765bc10b90d2/forecast/?spot_id=1",
+		// 	success		: function( data ){
+		// 		console.log(data)
+		// 	}
+		// } )
+		$.ajax({
+			dataType: "jsonp",
+			url: "http://magicseaweed.com/api/52e12d680684572ddc98765bc10b90d2/forecast/?spot_id=616&units=us",
+			success: function (data) {
+				//console.log(data);
+				surfData = data;
+				surfdataHandler()
+			}
+		});
+		function surfdataHandler(){
+			console.log( surfData )
+			console.log( typeof( surfData ))
+			console.log( surfData.length )
+			//$("#map").append("<img src='"+ +"'/>")
+			
+			$(".map").append("<img src='" + surfData[0].charts.swell + "'/>")
+			$(".map").append("<img src='" + surfData[0].charts.wind + "'/>")
+			$(".temp").html("Temp: " + surfData[0].condition.temperature + "&#8457")
+			$(".minHeight").html("min surf height : " + surfData[0].swell.minBreakingHeight + " feet")
+			$(".maxHeight").html("max surf height : " + surfData[0].swell.maxBreakingHeight + " feet")
+			
+		
+
+			// for( i = 0; i < surfData.length; i++){
+			// 	console.log( surfData[i])
+			// }
+		}
+		// $.get("data/response.json").done(function( data ){
+		// 	//console.log(data ) 
+		// 	surfData = data;
+		// 	console.log(surfData);
+		// 	console.log(surfData[0]);
+		// 	console.log(surfData[0].condition.weather);
+		// 	$(".temp").html( "<b>" + surfData[0].condition.weather + "</b>" )
+		// })
+	})
+	</script>
+	
+
+	<style> 
+	.temp{
+		font-size : 50px;
+		border: 2px solid purple;
+	}
+
+	.minHeight{
+		border: 2px solid green;
+	}
+
+	.maxHeight{
+		border: 2px solid black;
+	}
+
+
+
+
+
+
+
+	</style>
+</head>
+<body>
+
+<div class="map"></div>
+
+<div class="temp">
+</div>
+
+<div class="minHeight"></div>
+
+<div class="maxHeight"></div>
+
+
+
+
+
+</body>
+</html>
